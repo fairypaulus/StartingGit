@@ -21,21 +21,31 @@
       <input type="submit" class="btn btn-dark mt-2" value="Submit">
     </form>
     <h2 class="title">Items</h2>
-    <ul id="items" class="list-group">
-      <li class="list-group-item">Item 1</li>
-      <li class="list-group-item">Item 2</li>
-      <li class="list-group-item">Item 3</li>
-      <li class="list-group-item">Item 4</li>
-      <li>ITEM 5</li>
+    <ul  class="list-group">
+      <li class="list-group-item" id="items">Item 1</li>
+      <li class="list-group-item" id="items">Item 2</li>
+      <li class="list-group-item" id="items">Item 3</li>
+      <li class="list-group-item" id="items">Item 4</li>
     </ul>
    </div>
   </div>
   <script>
-    // var items=document.getElementsByClassName("list-group-item");
-    // items[4].style.backgroundColor="green";
+    //QUERYSELECTOR
+    var secondItem=document.querySelector('#items:nth-child(2)');
+    secondItem.style.backgroundColor="green";
 
-    var select=document.getElementsByTagName("li");
-    select[4].style.backgroundColor="green";
+    var ivs=document.querySelector('.list-group-item:nth-child(3)');
+    ivs.textContent=" ";
+
+    //QUERYSELECTORALL
+    var second=document.querySelectorAll('#items');
+    second[1].style.color="green";
+
+    var odd=document.querySelectorAll('.list-group-item:nth-child(odd)');
+
+    for(var i=0;i<odd.length;i++){
+      odd[i].style.backgroundColor="green";
+    }
   </script>
 </body>
 </html>
