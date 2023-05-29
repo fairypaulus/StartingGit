@@ -50,10 +50,17 @@
   li.className ="list-group-item";
   li.appendChild(document.createTextNode(newItem));
 
+  //add edit button with li
+  var editbtn=document.createElement("button");
+  editbtn.className="btn btn-danger btn-sm ml-2 float-right delete";
+  editbtn.appendChild(document.createTextNode("X"));
+  li.appendChild(editbtn);
+  itemlist.appendChild(li);
+
   //add delete button with li
   var deletebtn=document.createElement("button");
-  deletebtn.className="btn btn-danger btn-sm float-right delete";
-  deletebtn.appendChild(document.createTextNode("X"));
+  deletebtn.className="btn btn-primary btn-sm float-right delete";
+  deletebtn.appendChild(document.createTextNode("Edit"));
   li.appendChild(deletebtn);
   itemlist.appendChild(li);
 
