@@ -25,7 +25,8 @@
     <h2 class="title">Add Items</h2>
     <form id="addForm" class="form-inline mb-3">
       <input type="text" class="form-control mr-2" id="item">
-      <input type="submit" class="btn btn-dark" value="Submit">
+      <input type="text" class="form-control mr-2" id="item2">
+      <input type="submit" class="btn btn-dark mt-2" value="Submit">
     </form>
     <h2 class="title">Items</h2>
     <ul id="items" class="list-group">
@@ -46,22 +47,23 @@
   e.preventDefault();
   // add li when type in text box
   var newItem = document.getElementById('item').value;
+  var newItem2 = document.getElementById('item2').value;
   var li = document.createElement('li');
   li.className ="list-group-item";
-  li.appendChild(document.createTextNode(newItem));
+  li.appendChild(document.createTextNode(newItem+" "+newItem2));
+
+    //add delete button with li
+    var deletebtn=document.createElement("button");
+  deletebtn.className="btn btn-danger ml-2 btn-sm float-right delete";
+  deletebtn.appendChild(document.createTextNode("X"));
+  li.appendChild(deletebtn);
+  itemlist.appendChild(li);
 
   //add edit button with li
   var editbtn=document.createElement("button");
-  editbtn.className="btn btn-danger btn-sm ml-2 float-right delete";
-  editbtn.appendChild(document.createTextNode("X"));
+  editbtn.className="btn btn-primary btn-sm float-right delete";
+  editbtn.appendChild(document.createTextNode("Edit"));
   li.appendChild(editbtn);
-  itemlist.appendChild(li);
-
-  //add delete button with li
-  var deletebtn=document.createElement("button");
-  deletebtn.className="btn btn-primary btn-sm float-right delete";
-  deletebtn.appendChild(document.createTextNode("Edit"));
-  li.appendChild(deletebtn);
   itemlist.appendChild(li);
 
      //removing item from li
@@ -80,7 +82,15 @@
   filter.addEventListener("keyup",filterItem);
   function filterItem(e){
     var text=e.target.value.toLowerCase();
-    console.log(text);
+    var item=itemlist.getElementsByTagName("li");
+    Array.from(item).forEach(function(item){
+      var itemName=item.firstChild.textContent;
+      if(itemName.toLocaleLowerCase().indexOf(text)!=-1){
+        item.style.display="block";
+      }else{
+        item.style.display="none";
+      }
+    });
   }
     
 
