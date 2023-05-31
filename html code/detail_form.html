@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1 class="text-center">DETAILS</h1>
+    <form id="addForm" class="container mb-3 text-center ">
+    <label style="font-weight: bold;" >NAME:</label>
+    <input type="text" id="nameid" required>
+    <label style="font-weight: bold;" >EMAIL:</label>
+    <input type="email" id="emailid" required>
+    <label style="font-weight: bold;">PHONE NUMBER:</label>
+    <input type="number" id="phoneid" required><br>
+    <input type="submit" class="btn btn-dark mt-2 align-content-center" value="Submit" id="subid">
+</form>
+
+    <script>
+    var addform=document.getElementById("addForm");
+
+    //create ul
+    var ul=document.createElement("ul");
+    ul.id="items";
+    ul.style="list-style: circle";
+    ul.className="list-group mt-3";
+    console.log(ul);
+    addform.appendChild(ul);
+   
+    var itemlist=document.getElementById("items");
+    addform.addEventListener("submit",addItem);
+
+    function addItem(e){
+
+  e.preventDefault();
+//create li and add as ul child
+  var li = document.createElement('li');
+  li.className ="list-group-item";
+  var nameItem = document.getElementById('nameid').value;
+  var emailItem2 = document.getElementById('emailid').value;
+  var phoneItem2 = document.getElementById('phoneid').value;
+  ul.appendChild(li);
+  li.appendChild(document.createTextNode(nameItem+" "+emailItem2+" "+phoneItem2));
+  itemlist.appendChild(li);
+
+  // store data into local storage
+  var my_obj={
+        name :nameItem,
+        email:emailItem2,
+        phone:phoneItem2
+      };
+
+      let myobj_serialization=JSON.stringify(my_obj);
+      localStorage.setItem(emailItem2,myobj_serialization);
+    }
+        
+    </script>
+  </body>
+</html>
+
+
+
+
+
