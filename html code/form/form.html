@@ -43,10 +43,23 @@
      btn.addEventListener("click",addSub);
      function addSub(e){
       e.preventDefault();
-      var nameVal=document.getElementById("name1").value;
-      var emailVal=document.getElementById("email").value;
-      localStorage.setItem("name",nameVal);
-      localStorage.setItem("email",emailVal);
+      // var nameVal=document.getElementById("name1").value;
+      // var emailVal=document.getElementById("email").value;
+      // localStorage.setItem("name",nameVal);
+      // localStorage.setItem("email",emailVal);
+
+      //using objects
+      let my_obj1={
+        name :document.getElementById("name1").value,
+        email: document.getElementById("email").value
+      };
+
+      // console.log(my_obj);
+      // localStorage.setItem("my_obj",my_obj);
+      // console.log(localStorage);
+
+      let myobj_serialization=JSON.stringify(my_obj1);
+      localStorage.setItem("my obj",myobj_serialization);
      }
 
 
