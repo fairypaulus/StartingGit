@@ -50,7 +50,7 @@
   li.className ="list-group-item";
   li.id=emailItem;
   ul.appendChild(li);
-  var detail=nameItem+" "+emailItem+" "+phoneItem;
+  var detail=nameItem+"-"+emailItem+"-"+phoneItem;
   li.appendChild(document.createTextNode(detail));
   itemlist.appendChild(li);
   console.log(li);
@@ -61,29 +61,45 @@
  //delete button create 
   var btndel=document.createElement("button");
   btndel.id="delbtn";
-  btndel.className="btn btn-danger ml-3 btn-sm float-right delete";
+  btndel.className="btn btn-danger ms-3 btn-sm float-right delete";
   btndel.appendChild(document.createTextNode("Delete"))
   li.appendChild(btndel);
   console.log(btndel);
+
+  //edit button create 
+  var btnedt=document.createElement("button");
+  btnedt.id="edtbtn";
+  btnedt.className="btn btn-danger ms-3 btn-sm float-right edit";
+  btnedt.appendChild(document.createTextNode("edit"))
+  li.appendChild(btnedt);
+  console.log(btnedt);
   }
 
   //removing item from li
    itemlist.addEventListener("click",removeItem);
    
   function removeItem(e){
-    if(e.target.classList.contains("delete")){
-        var li=e.target.parentElement;
 
+    var li=e.target.parentElement;
+
+    if(e.target.classList.contains("delete")){
+      console.log("delete wala ",li)
         itemlist.removeChild(li);
         localStorage.removeItem(li.id);
+    }
+    else if(e.target.classList.contains("edit")){
+      itemlist.removeChild(li);
+      for(let i=0;i<3;i++){
+      let arr = li.childNodes[0].textContent.split('-');
+        console.log("edit wala ",li)
+        document.getElementById('nameid').value=arr[0];
+        document.getElementById('emailid').value=arr[1];
+        document.getElementById('phoneid').value=arr[2];
+      }
+      localStorage.removeItem(li.id);
     }
   }
         
     </script>
   </body>
 </html>
-
-
-
-
-
