@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  </head>
+  <body class="container-sm ms-5">
+    <br>
+    <label>Choose Expenses:</label>
+    <input type="number" id="exp">
+    <label>Choose discription:</label>
+    <input type="text" id="dsp">
+    <label>Choose Category:</label>
+    <input type="text" id="ctg">
+    <br>
+    <button class="btn btn-danger mt-2" id="sub">Add Expenses</button>
+    <script>
+
+      //unorderd list creation
+      var ul1=document.createElement("ul");
+      ul1.type=Boolean;
+      ul1.id="un_li";
+      document.body.appendChild(ul1);
+
+      var sub_btn=document.getElementById("sub");
+      sub_btn.addEventListener("click",addVal);
+
+      function addVal(e){
+        e.preventDefault();
+
+        //List creation
+        var li1=document.createElement("li");
+        li1.className="mt-3"
+        li1.id=document.getElementById("dsp").value;
+        li1.appendChild(document.createTextNode(document.getElementById("exp").value+"-"+document.getElementById("dsp").value+"-"+document.getElementById("ctg").value));
+
+        //add values to local storage
+        var full_val=document.getElementById("exp").value+"-"+document.getElementById("dsp").value+"-"+document.getElementById("ctg").value;
+
+        var add=JSON.stringify(full_val);
+        localStorage.setItem(document.getElementById("dsp").value,add);
+
+        //Delete Button
+        let del_btn=document.createElement("button");
+        del_btn.className="btn btn-danger btn-sm ms-2 delete";
+        del_btn.appendChild(document.createTextNode("delete"));
+        del_btn.id="db";
+        li1.appendChild(del_btn);
+        
+        //Edit Button
+        let edt_btn=document.createElement("button");
+        edt_btn.className="btn btn-primary btn-sm ms-2 edit";
+        edt_btn.appendChild(document.createTextNode("edit"));
+        edt_btn.id="eb";
+        li1.appendChild(edt_btn);
+        // console.log(del_btn);
+
+        ul1.appendChild(li1);
+
+        ul1.addEventListener("click",deletebtn);
+
+        function deletebtn(e){
+          var li=e.target.parentElement;
+          if(e.target.classList.contains("delete")){
+          ul1.removeChild(li);
+          localStorage.removeItem(li.id)
+          }else if(e.target.classList.contains("edit")){
+            ul1.removeChild(li);
+            var arr=li.childNodes[0].textContent.split("-");
+            for(let i=0;i<3;i++){
+              document.getElementById("exp").value=arr[0];
+              document.getElementById("dsp").value=arr[1];
+              document.getElementById("ctg").value=arr[2];
+            }
+           
+          localStorage.removeItem(li.id)
+
+          } 
+        }
+      }
+
+
+
+
+    </script>
+  </body>
+</html>
