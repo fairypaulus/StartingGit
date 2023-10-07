@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </style>
+  </head>
+  <body>
+    <form id="addForm" class="container mb-3 text-center ">
+       <h1 class="text-center">DETAILS</h1>
+    <label style="font-weight: bold;" >NAME:</label>
+    <input type="text" id="nameid">
+    <label style="font-weight: bold;" >EMAIL:</label>
+    <input type="email" id="emailid">
+    <label style="font-weight: bold;">PHONE NUMBER:</label>
+    <input type="number" id="phoneid"><br>
+    <input type="submit" class="btn btn-dark mt-2 align-content-center" value="Submit" id="subid">
+</form>
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"> </script>
+<script>
+    var addform=document.getElementById("addForm");
+
+    //create ul
+    var ul=document.createElement("ul");
+    ul.id="items";
+    ul.style="list-style: circle";
+    ul.className="list-group mt-3";
+    addform.appendChild(ul);
+   
+    var itemlist=document.getElementById("items");
+    addform.addEventListener("submit",addItem);
+    axios.get('https://crudcrud.com/api/aa9a3120295d403aa2dd3342dfb9c636/app')
+  .then((response) =>{
+  for(var i=0;i<response.data.length;i++){
+   var li = document.createElement('li');
+  li.className ="list-group-item";
+  ul.appendChild(li);
+  var dataaxios=response.data[i].nameItem+"-"+response.data[i].emailItem+"-"+response.data[i].phoneItem;
+  li.appendChild(document.createTextNode(dataaxios));
+  itemlist.appendChild(li);
+  }
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
+    //function for form submit
+  function addItem(e){
+  e.preventDefault();
+
+  var nameItem = document.getElementById('nameid').value;
+  var emailItem = document.getElementById('emailid').value;
+  var phoneItem = document.getElementById('phoneid').value;
+
+  var obj={
+    nameItem,
+    emailItem,
+    phoneItem
+  }
+
+  console.log(obj);
+
+  // add data on server
+  axios.post('https://crudcrud.com/api/aa9a3120295d403aa2dd3342dfb9c636/app',obj)
+  .then(response => console.log(response.data))
+  .catch(err => console.log(err))
+
+//create li and add as ul child
+  var li = document.createElement('li');
+  li.className ="list-group-item";
+  li.id=emailItem;
+  ul.appendChild(li);
+  var detail=nameItem+"-"+emailItem+"-"+phoneItem;
+  li.appendChild(document.createTextNode(detail));
+  itemlist.appendChild(li);
+
+  
+  }
+        
+    </script>
+  </body>
+</html>
